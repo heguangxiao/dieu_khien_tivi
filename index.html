@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let Remote = function (tivi) {
+        this.nums = tivi.nums;
+
+        this.setNums = function () {
+            if (tivi.status) {
+                this.nums = parseInt(prompt('',0));
+                tivi.setNums(this.nums);
+            }
+        }
+
+        this.setVolumes = function () {
+            if (tivi.status) {
+                this.volumes = parseInt(prompt('',0));
+                tivi.setVolumes(this.volumes);
+            }
+        }
+    }
+    
+    let Tivi = function () {
+        this.nums = 0;
+        this.volumes = 0;
+        this.status = false;
+        this.getStatus = function () {
+            if (this.status) {
+                return 'Bat';
+            }
+            return 'Tat';
+        }
+
+        this.onOff = function () {
+            if (this.status) {
+                this.status = false;
+            }else{
+                this.status = true;
+
+            }
+        }
+
+        this.setNums = function (num) {
+            this.nums = num;
+        }
+
+        this.setVolumes = function (volume) {
+            this.volumes = volume;
+        }
+    }
+
+    let samSung = new Tivi();
+    let dieuKhien = new Remote(samSung);
+
+    function showDiv() {
+        let divShow = document.getElementById('message');
+        let str = 'Kenh '+samSung.nums+'<br/>Volume '+samSung.volumes+'<br/>Status '+samSung.getStatus();
+        divShow.innerHTML = str;
+    }
+
+    function onOffTivi() {
+        samSung.onOff();
+    }
+
+    function amLuong() {
+        dieuKhien.setVolumes();
+    }
+
+    function chonKenh() {
+        dieuKhien.setNums();
+    }
+
+    setInterval(showDiv,1);
+</script>
+<div id="message"></div>
+<input value="On/Off" type="button" onclick="onOffTivi();"/>
+<input value="+/-" type="button" onclick="amLuong();"/>
+<input value="< | >" type="button" onclick="chonKenh();"/>
+</body>
+</html>
